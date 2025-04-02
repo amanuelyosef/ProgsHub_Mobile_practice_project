@@ -3,6 +3,8 @@ package com.example.progshub_mobile_practice_project.presentation.ui.screens
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import com.example.progshub_mobile_practice_project.presentation.ui.components.BottomNavigationBar
+import com.example.progshub_mobile_practice_project.presentation.ui.components.CartListItem
+import com.example.progshub_mobile_practice_project.presentation.ui.components.cartListData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +36,7 @@ fun CartScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "ABC Online Shop",
+                        text = "Cart",
                         fontSize = MaterialTheme.typography.headlineLarge.fontSize,
                         fontWeight = FontWeight.ExtraBold,
                     )
@@ -53,8 +57,15 @@ fun CartScreen(
             columns = StaggeredGridCells.Fixed(2),
             state = lazyListState,
         ) {
-
-
+            items(
+                items = cartListData,
+                span = {StaggeredGridItemSpan.FullLine},
+                key = {it.id}
+            ){item ->
+                CartListItem(item) {
+                    cartListData.remove(cartListData.find { it.id == item.id })
+                }
+            }
         }
     }
 

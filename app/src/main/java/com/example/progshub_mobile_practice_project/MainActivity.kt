@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ProgsHub_Mobile_practice_projectTheme {
-                //NavigationGraph()
+                NavigationGraph()
             }
         }
     }
